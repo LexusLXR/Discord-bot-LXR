@@ -193,7 +193,7 @@ async def update_time_message():
 
     embed.set_image(url="https://cdn.discordapp.com/attachments/547344310635462656/1282545989021863947/test.gif?ex=66dfbf88&is=66de6e08&hm=8d3b37118bbaf0d93c04eb2c595078c0407861f60188b652a3517f9cbf674a97&")
     local_time = datetime.datetime.now()
-    local_time_str = local_time.strftime('%H:%M')
+    local_time_str = local_time.strftime('%I:%M %p')
     embed.set_footer(text=f"Current time: {local_time_str}")
     
     if message_id is None:
