@@ -11,7 +11,7 @@ def setup_stats(bot):
     global message_id
     message_id=1282503214717210686
 
-    def Honkai_current_time():
+    def Hoyoplay_current_time():
         now= datetime.datetime.now()
         
         #Calculate the daily reset time
@@ -34,8 +34,18 @@ def setup_stats(bot):
         
         
         
-        # Weekly reset is in 3 days
-        weekly_reset_eu= 7
+         #weekly reset datetime
+        weekly_reset_time = datetime.time(8, 30)
+        
+        #days till next monday
+        days_until_next_monday = (7 - now.weekday()) % 7  # 0 for Monday, 6 for Sunday
+        
+        # change daily reset days if its monday
+        if days_until_next_monday == 0 and now.time() > weekly_reset_time:
+            days_until_next_monday = 7
+        
+        
+        weekly_reset_eu = days_until_next_monday
         
         return{
             "EU":{"time": "08:30 AM", 
@@ -60,15 +70,15 @@ def setup_stats(bot):
         guild = channel.guild
         member_count = guild.member_count
         
-        server_status = Honkai_current_time()
+        server_status = Hoyoplay_current_time()
         daily_reset_eu_hours = server_status["EU"]["daily_reset_hours"]
 
         
         
         embed = discord.Embed(
-            title="Server Status",
+            title="Hoyogames Server Status Eu",
             description=f"Members: {member_count}",
-            color=discord.Color.red()
+            color=discord.Color.blue()
         )
         
         for server, status in server_status.items():
@@ -82,7 +92,7 @@ def setup_stats(bot):
                 inline=False             
             )
 
-        embed.set_image(url="https://cdn.discordapp.com/attachments/547344310635462656/1282545989021863947/test.gif?ex=66dfbf88&is=66de6e08&hm=8d3b37118bbaf0d93c04eb2c595078c0407861f60188b652a3517f9cbf674a97&")
+        embed.set_image(url="https://cdn.discordapp.com/attachments/993100691088343111/1288419482770866208/HoYoverse_gamescom_2023.jpg?ex=66f51da6&is=66f3cc26&hm=0b5091a115b3ffbb651e9cda0b83356caadc25f29addc3780efb1786b06842e0&")
         local_time = datetime.datetime.now()
         local_time_str = local_time.strftime('%I:%M %p')
         embed.set_footer(text=f"Current time: {local_time_str}")
